@@ -53,23 +53,27 @@ async function cariPeserta(qrText) {
 
     if (data.found) {
 
-      hasilQR.innerHTML = `
-        <b>✅ Peserta ditemukan</b><br><br>
-        Kode: ${data.kode}<br>
-        Nama: ${data.nama}<br>
-        Tanggal Lahir: ${data.tanggalLahir}<br>
-        Kategori: ${data.kategori}
-      `;
+  hasilQR.innerHTML = `
+    <b>✅ Peserta ditemukan</b><br><br>
+    Kode: ${data.kode}<br>
+    Nama: ${data.nama}<br>
+    Tanggal Lahir: ${data.tanggalLahir}<br>
+    Kategori: ${data.kategori}
+  `;
 
-      status.textContent = "Siap mengambil foto lembar jawaban";
-      document.getElementById("btnFoto").style.display = "block";
+  status.textContent = "Siap mengambil foto lembar jawaban";
 
-    } else {
+  console.log("Masuk if");
+  console.log(document.getElementById("btnFoto"));
 
-      hasilQR.textContent = "❌ Peserta tidak ditemukan";
-      status.textContent = "";
+  document.getElementById("btnFoto").style.display = "block";
 
-    }
+} else {
+
+  hasilQR.textContent = "❌ Peserta tidak ditemukan";
+  status.textContent = "";
+
+}
 
   } catch (err) {
 
