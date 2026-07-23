@@ -105,6 +105,10 @@ document.getElementById("fotoJawaban").addEventListener("change", (e) => {
 });
 document.getElementById("btnUlang").addEventListener("click", () => {
 
+  document.getElementById("previewFoto").style.display = "none";
+  document.getElementById("aksiFoto").style.display = "none";
+  document.getElementById("fotoJawaban").value = "";
+
   document.getElementById("fotoJawaban").click();
 
 });
