@@ -87,12 +87,14 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
   status.textContent = "❌ " + (result.error || "Upload gagal");
 }
 
-    } catch (err) {
+  catch (err) {
 
-      console.error(err);
-      status.textContent = "❌ " + err.message;
+  console.error(err);
 
-    }
+  status.textContent =
+    "❌ " + err.name + " : " + err.message;
+
+}
 
   };
 
