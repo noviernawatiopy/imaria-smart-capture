@@ -97,8 +97,14 @@ document.getElementById("fotoJawaban").addEventListener("change", (e) => {
 
   preview.src = URL.createObjectURL(file);
   preview.style.display = "block";
+  document.getElementById("aksiFoto").style.display = "block";
 
   document.getElementById("status").textContent =
     "✅ Foto siap diproses";
+
+});
+document.getElementById("btnUlang").addEventListener("click", () => {
+
+  document.getElementById("fotoJawaban").click();
 
 });
