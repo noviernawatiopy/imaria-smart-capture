@@ -20,9 +20,16 @@ async function startCamera() {
     status.textContent = "✅ Kamera berhasil dibuka";
     btn.disabled = true;
     btn.textContent = "Kamera Aktif";
+
     scanQR();
-  } 
-  function scanQR() {
+
+  } catch (err) {
+    console.error(err);
+    status.textContent = "❌ Gagal membuka kamera";
+  }
+}
+
+function scanQR() {
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
 
     canvas.width = video.videoWidth;
@@ -45,8 +52,4 @@ async function startCamera() {
   }
 
   requestAnimationFrame(scanQR);
-}catch (err) {
-    console.error(err);
-    status.textContent = "❌ Gagal membuka kamera";
-  }
 }
