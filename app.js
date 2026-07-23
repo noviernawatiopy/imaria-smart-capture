@@ -1,6 +1,6 @@
 const video = document.getElementById("camera");
 const status = document.getElementById("status");
-const btn = document.getElementById("startBtn");
+const btn = document.getElementById("btnStart");
 
 btn.addEventListener("click", startCamera);
 
