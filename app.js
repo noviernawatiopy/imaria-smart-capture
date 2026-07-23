@@ -2,9 +2,6 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzHkQi9QrLRsqPZnCQKnj1q
 
 const status = document.getElementById("status");
 const hasilQR = document.getElementById("hasilQR");
-const btn = document.getElementById("btnStart");
-
-btn.addEventListener("click", startScanner);
 
 function startScanner() {
   btn.disabled = true;
