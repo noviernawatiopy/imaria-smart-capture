@@ -1,7 +1,6 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzHkQi9QrLRsqPZnCQKnj1qydbxtNsjyRaekC41tilarLVjK94Ce-bXOXGm09XvRH2s/exec";
 
 const status = document.getElementById("status");
-const hasilQR = document.getElementById("hasilQR");
 
 let fotoFile = null;
 
@@ -23,7 +22,6 @@ document.getElementById("fotoJawaban").addEventListener("change", (e) => {
   fotoFile = file;
 
   const preview = document.getElementById("previewFoto");
-
   preview.src = URL.createObjectURL(file);
   preview.style.display = "block";
 
@@ -34,7 +32,7 @@ document.getElementById("fotoJawaban").addEventListener("change", (e) => {
 });
 
 // ===============================
-// Ambil ulang foto
+// Ambil Ulang
 // ===============================
 document.getElementById("btnUlang").addEventListener("click", () => {
 
@@ -49,7 +47,7 @@ document.getElementById("btnUlang").addEventListener("click", () => {
 });
 
 // ===============================
-// Upload (sementara)
+// Upload Foto
 // ===============================
 document.getElementById("btnUpload").addEventListener("click", async () => {
 
@@ -58,16 +56,46 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
     return;
   }
 
-  status.textContent = "⏳ Mengupload foto...";
+  status.textContent = "⏳ Menyiapkan foto...";
 
-  // Tahap berikutnya:
-  // 1. Upload foto ke Apps Script
-  // 2. Apps Script simpan ke Google Drive
-  // 3. Baca QR dari foto
-  // 4. OCR jawaban
+  const reader = new FileReader();
 
-  setTimeout(() => {
-    status.textContent = "✅ Siap tahap upload";
-  }, 1000);
+  reader.onload = async function () {
+
+    try {
+
+      status.textContent = "⏳ Mengupload foto...";
+
+      const base64 = reader.result.split(",")[1];
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          image: base64,
+          fileName: fotoFile.name,
+          mimeType: fotoFile.type
+        })
+      });
+
+      const result = await response.json();
+
+      console.log(result);
+
+      if (result.success) {
+        status.textContent = "✅ Upload berhasil";
+      } else {
+        status.textContent = "❌ Upload gagal";
+      }
+
+    } catch (err) {
+
+      console.error(err);
+      status.textContent = "❌ " + err.message;
+
+    }
+
+  };
+
+  reader.readAsDataURL(fotoFile);
 
 });
