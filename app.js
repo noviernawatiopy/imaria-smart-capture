@@ -10,9 +10,9 @@ const btnUpload = document.getElementById("btnUpload");
 
 let fotoFile = null;
 
-// ==========================
-// AMBIL FOTO
-// ==========================
+/* ===========================
+   AMBIL FOTO
+=========================== */
 
 btnFoto.addEventListener("click", () => {
   inputFoto.click();
@@ -20,9 +20,7 @@ btnFoto.addEventListener("click", () => {
 
 inputFoto.addEventListener("change", (e) => {
 
-  if (!e.target.files.length) {
-    return;
-  }
+  if (!e.target.files.length) return;
 
   fotoFile = e.target.files[0];
 
@@ -35,9 +33,9 @@ inputFoto.addEventListener("change", (e) => {
 
 });
 
-// ==========================
-// AMBIL ULANG
-// ==========================
+/* ===========================
+   AMBIL ULANG
+=========================== */
 
 btnUlang.addEventListener("click", () => {
 
@@ -56,9 +54,9 @@ btnUlang.addEventListener("click", () => {
 
 });
 
-// ==========================
-// UPLOAD
-// ==========================
+/* ===========================
+   UPLOAD
+=========================== */
 
 btnUpload.addEventListener("click", async () => {
 
@@ -73,19 +71,23 @@ btnUpload.addEventListener("click", async () => {
 
     const base64 = await fileToBase64(fotoFile);
 
-    status.textContent = "⏳ Mengupload foto...";
+    status.textContent = "⏳ Mengupload ke server...";
+
+    const payload = JSON.stringify({
+      fileName: fotoFile.name,
+      mimeType: fotoFile.type,
+      image: base64
+    });
 
     const response = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        fileName: fotoFile.name,
-        mimeType: fotoFile.type,
-        image: base64
-      })
+      mode: "cors",
+      body: payload
     });
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
 
     const hasil = await response.json();
 
@@ -93,7 +95,7 @@ btnUpload.addEventListener("click", async () => {
 
       status.innerHTML =
         "✅ Upload berhasil.<br><br>" +
-        "Nama File : " + hasil.fileName;
+        "Nama File: <b>" + hasil.fileName + "</b>";
 
     } else {
 
@@ -108,16 +110,16 @@ btnUpload.addEventListener("click", async () => {
     console.error(err);
 
     status.innerHTML =
-      "❌ Error<br><br>" +
-      err;
+      "❌ Gagal terhubung ke Apps Script.<br><br>" +
+      err.message;
 
   }
 
 });
 
-// ==========================
-// BASE64
-// ==========================
+/* ===========================
+   FILE -> BASE64
+=========================== */
 
 function fileToBase64(file) {
 
@@ -125,11 +127,9 @@ function fileToBase64(file) {
 
     const reader = new FileReader();
 
-    reader.onload = () => {
+    reader.onload = function () {
 
-      const base64 = reader.result.split(",")[1];
-
-      resolve(base64);
+      resolve(reader.result.split(",")[1]);
 
     };
 
