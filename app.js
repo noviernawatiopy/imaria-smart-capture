@@ -87,12 +87,18 @@ async function cariPeserta(qrText) {
 document.getElementById("btnFoto").addEventListener("click", () => {
   document.getElementById("fotoJawaban").click();
 });
+
 document.getElementById("fotoJawaban").addEventListener("change", (e) => {
 
   const file = e.target.files[0];
-
   if (!file) return;
 
-  alert("Foto berhasil dipilih:\n" + file.name);
+  const preview = document.getElementById("previewFoto");
+
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = "block";
+
+  document.getElementById("status").textContent =
+    "✅ Foto siap diproses";
 
 });
