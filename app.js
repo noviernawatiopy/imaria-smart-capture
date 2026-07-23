@@ -57,7 +57,7 @@ async function cariPeserta(qrText) {
         <b>✅ Peserta ditemukan</b><br><br>
         Kode : ${data.kode}<br>
         Nama : ${data.nama}<br>
-        Grade : ${data.grade}<br>
+        Tanggal Lahir : ${data.tanggalLahir}<br>
         Kategori : ${data.kategori}
       `;
 
