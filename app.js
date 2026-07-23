@@ -85,5 +85,14 @@ async function cariPeserta(qrText) {
 } // <-- fungsi cariPeserta selesai di sini
 
 document.getElementById("btnFoto").addEventListener("click", () => {
-  alert("Tahap berikutnya: Kamera untuk memfoto lembar jawaban.");
+  document.getElementById("fotoJawaban").click();
+});
+document.getElementById("fotoJawaban").addEventListener("change", (e) => {
+
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  alert("Foto berhasil dipilih:\n" + file.name);
+
 });
