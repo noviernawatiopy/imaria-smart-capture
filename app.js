@@ -112,3 +112,9 @@ document.getElementById("btnUlang").addEventListener("click", () => {
   document.getElementById("fotoJawaban").click();
 
 });
+document.getElementById("btnUpload").addEventListener("click", () => {
+
+  document.getElementById("status").textContent =
+    "⏳ Mengupload foto...";
+
+});
