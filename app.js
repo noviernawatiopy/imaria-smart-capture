@@ -66,7 +66,8 @@ async function cariPeserta(qrText) {
   console.log("Masuk if");
   console.log(document.getElementById("btnFoto"));
 
-  document.getElementById("btnFoto").style.display = "block";
+  // document.getElementById("btnFoto").style.display = "block";
+      
 
 } else {
 
