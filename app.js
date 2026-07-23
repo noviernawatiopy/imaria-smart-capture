@@ -12,7 +12,7 @@ document.getElementById("btnFoto").addEventListener("click", () => {
 });
 
 // ===============================
-// Setelah foto dipilih
+// Setelah Foto Dipilih
 // ===============================
 document.getElementById("fotoJawaban").addEventListener("change", (e) => {
 
@@ -49,7 +49,7 @@ document.getElementById("btnUlang").addEventListener("click", () => {
 // ===============================
 // Upload Foto
 // ===============================
-document.getElementById("btnUpload").addEventListener("click", async () => {
+document.getElementById("btnUpload").addEventListener("click", () => {
 
   if (!fotoFile) {
     alert("Silakan ambil foto terlebih dahulu.");
@@ -60,7 +60,7 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
 
   const reader = new FileReader();
 
-  reader.onload = async function () {
+  reader.onload = async () => {
 
     try {
 
@@ -70,6 +70,9 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
 
       const response = await fetch(API_URL, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           image: base64,
           fileName: fotoFile.name,
@@ -82,20 +85,25 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
       console.log(result);
 
       if (result.success) {
-  status.textContent = "✅ Upload berhasil";
-} else {
-  alert(JSON.stringify(result));
-status.textContent = "❌ Upload gagal";
-}
 
-  catch (err) {
+        status.textContent = "✅ Upload berhasil";
 
-  console.error(err);
+      } else {
 
-  status.textContent =
-    "❌ " + err.name + " : " + err.message;
+        alert(JSON.stringify(result, null, 2));
+        status.textContent = "❌ Upload gagal";
 
-}
+      }
+
+    } catch (err) {
+
+      console.error(err);
+
+      alert(err.message);
+
+      status.textContent = "❌ " + err.message;
+
+    }
 
   };
 
