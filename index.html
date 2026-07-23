@@ -10,47 +10,47 @@
 
 <body>
 
-  <header>
-    <h1>📷 IMARIA Smart Capture</h1>
-    <p>Version 2.0</p>
-  </header>
+<header>
+  <h1>📷 IMARIA Smart Capture</h1>
+  <p>Versi 2.0</p>
+</header>
 
-  <main>
+<main>
 
-    <button id="btnFoto">
-      📷 Ambil Foto Lembar Jawaban
+  <button id="btnFoto">
+    📷 Ambil Foto Lembar Jawaban
+  </button>
+
+  <input
+    type="file"
+    id="fotoJawaban"
+    accept="image/*"
+    capture="environment"
+    hidden>
+
+  <img
+    id="previewFoto"
+    alt="Preview Foto">
+
+  <div id="status">
+    Silakan ambil foto lembar jawaban.
+  </div>
+
+  <div id="aksiFoto">
+
+    <button id="btnUlang">
+      🔄 Ambil Ulang
     </button>
 
-    <input
-      type="file"
-      id="fotoJawaban"
-      accept="image/*"
-      capture="environment"
-      style="display:none;">
+    <button id="btnUpload">
+      ⬆ Upload &amp; Proses
+    </button>
 
-    <img
-      id="previewFoto"
-      style="display:none;width:100%;margin-top:16px;border-radius:12px;">
+  </div>
 
-    <div id="status">
-      Silakan ambil foto lembar jawaban.
-    </div>
+</main>
 
-    <div id="aksiFoto" style="display:none; margin-top:16px;">
-
-      <button id="btnUlang">
-        🔄 Ambil Ulang
-      </button>
-
-      <button id="btnUpload">
-        ⬆ Upload & Proses OCR
-      </button>
-
-    </div>
-
-  </main>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
