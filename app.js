@@ -62,6 +62,7 @@ async function cariPeserta(qrText) {
       `;
 
       status.textContent = "Siap mengambil foto lembar jawaban";
+      document.getElementById("btnFoto").classList.remove("hidden");
 
     } else {
 
@@ -77,4 +78,8 @@ async function cariPeserta(qrText) {
 
   }
 
-}
+} // <-- fungsi cariPeserta selesai di sini
+
+document.getElementById("btnFoto").addEventListener("click", () => {
+  alert("Tahap berikutnya: Kamera untuk memfoto lembar jawaban.");
+});
