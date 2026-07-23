@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 
 header {
   background: #1976d2;
-  color: white;
+  color: #fff;
   text-align: center;
   padding: 18px;
 }
@@ -28,7 +28,7 @@ header p {
 }
 
 main {
-  max-width: 700px;
+  max-width: 720px;
   margin: 24px auto;
   padding: 16px;
 }
@@ -40,11 +40,10 @@ button {
   border: none;
   border-radius: 10px;
   background: #1976d2;
-  color: white;
+  color: #fff;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: .2s;
 }
 
 button:hover {
@@ -52,21 +51,21 @@ button:hover {
 }
 
 #previewFoto {
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 12px;
-  border: 2px solid #ddd;
   display: none;
+  width: 100%;
+  margin-top: 18px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
 }
 
 #status {
-  margin-top: 16px;
-  padding: 12px;
-  text-align: center;
-  font-size: 15px;
-  background: white;
-  border-radius: 10px;
+  margin-top: 18px;
+  padding: 14px;
+  background: #fff;
   border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  word-break: break-word;
 }
 
 #aksiFoto {
