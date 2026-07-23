@@ -55,10 +55,10 @@ async function cariPeserta(qrText) {
 
       hasilQR.innerHTML = `
         <b>✅ Peserta ditemukan</b><br><br>
-        Kode : ${data.kode}<br>
-        Nama : ${data.nama}<br>
-        Tanggal Lahir : ${data.tanggalLahir}<br>
-        Kategori : ${data.kategori}
+        Kode: ${data.kode}<br>
+        Nama: ${data.nama}<br>
+        Tanggal Lahir: ${data.tanggalLahir}<br>
+        Kategori: ${data.kategori}
       `;
 
       status.textContent = "Siap mengambil foto lembar jawaban";
