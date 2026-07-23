@@ -84,7 +84,8 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
       if (result.success) {
   status.textContent = "✅ Upload berhasil";
 } else {
-  status.textContent = "❌ " + (result.error || "Upload gagal");
+  alert(JSON.stringify(result));
+status.textContent = "❌ Upload gagal";
 }
 
   catch (err) {
