@@ -12,18 +12,12 @@
 
   <header>
     <h1>📷 IMARIA Smart Capture</h1>
-    <p>Version 1.0</p>
+    <p>Version 2.0</p>
   </header>
 
   <main>
 
-    <div id="reader" style="display:none;"></div>
-
-<div id="hasilQR" style="display:none;">
-  Belum ada QR yang terbaca
-</div>
-
-   <button id="btnFoto">
+    <button id="btnFoto">
       📷 Ambil Foto Lembar Jawaban
     </button>
 
@@ -33,27 +27,29 @@
       accept="image/*"
       capture="environment"
       style="display:none;">
-<img
-  id="previewFoto"
-  style="display:none;width:100%;margin-top:16px;border-radius:8px;">
+
+    <img
+      id="previewFoto"
+      style="display:none;width:100%;margin-top:16px;border-radius:12px;">
+
     <div id="status">
-      Menunggu kamera...
+      Silakan ambil foto lembar jawaban.
     </div>
-<div id="aksiFoto" style="display:none; margin-top:16px;">
 
-  <button id="btnUlang">
-    🔄 Ambil Ulang
-  </button>
+    <div id="aksiFoto" style="display:none; margin-top:16px;">
 
- <button id="btnUpload">
-  ⬆ Upload & Proses OCR
-</button>
+      <button id="btnUlang">
+        🔄 Ambil Ulang
+      </button>
 
-</div>
+      <button id="btnUpload">
+        ⬆ Upload & Proses OCR
+      </button>
+
+    </div>
 
   </main>
 
-  <script src="https://unpkg.com/html5-qrcode"></script>
   <script src="app.js"></script>
 
 </body>
