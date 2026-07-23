@@ -82,10 +82,10 @@ document.getElementById("btnUpload").addEventListener("click", async () => {
       console.log(result);
 
       if (result.success) {
-        status.textContent = "✅ Upload berhasil";
-      } else {
-        status.textContent = "❌ Upload gagal";
-      }
+  status.textContent = "✅ Upload berhasil";
+} else {
+  status.textContent = "❌ " + (result.error || "Upload gagal");
+}
 
     } catch (err) {
 
