@@ -17,14 +17,22 @@
 
   <main>
 
-   <div id="reader"></div>
+    <div id="reader"></div>
 
-<div id="hasilQR">
-  Belum ada QR yang terbaca
-</div>
+    <div id="hasilQR">
+      Belum ada QR yang terbaca
+    </div>
+
     <button id="btnFoto" style="display:none;">
-  📷 Foto Lembar Jawaban
-</button>
+      📷 Foto Lembar Jawaban
+    </button>
+
+    <input
+      type="file"
+      id="fotoJawaban"
+      accept="image/*"
+      capture="environment"
+      style="display:none;">
 
     <div id="status">
       Menunggu kamera...
@@ -35,7 +43,8 @@
     </button>
 
   </main>
-<script src="https://unpkg.com/html5-qrcode"></script>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
   <script src="app.js"></script>
 
 </body>
