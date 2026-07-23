@@ -62,7 +62,7 @@ async function cariPeserta(qrText) {
       `;
 
       status.textContent = "Siap mengambil foto lembar jawaban";
-      document.getElementById("btnFoto").classList.remove("hidden");
+      document.getElementById("btnFoto").style.display = "block";
 
     } else {
 
