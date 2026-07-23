@@ -10,51 +10,123 @@ const btnUpload = document.getElementById("btnUpload");
 
 let fotoFile = null;
 
-status.textContent = "✅ app.js berhasil dimuat";
+// =========================
+// AMBIL FOTO
+// =========================
 
-btnFoto.onclick = () => {
-  status.textContent = "📷 Tombol Ambil Foto diklik";
-  inputFoto.click();
-};
+btnFoto.addEventListener("click", () => {
+    inputFoto.click();
+});
 
-inputFoto.onchange = (e) => {
+inputFoto.addEventListener("change", (e) => {
 
-  const file = e.target.files[0];
-  if (!file) {
-    status.textContent = "❌ Tidak ada foto dipilih";
-    return;
-  }
+    if (!e.target.files.length) return;
 
-  fotoFile = file;
+    fotoFile = e.target.files[0];
 
-  preview.src = URL.createObjectURL(file);
-  preview.style.display = "block";
-  aksiFoto.style.display = "block";
+    preview.src = URL.createObjectURL(fotoFile);
+    preview.style.display = "block";
 
-  status.textContent = "✅ Foto berhasil dipilih";
+    aksiFoto.style.display = "block";
 
-};
+    status.textContent = "✅ Foto berhasil dipilih.";
 
-btnUlang.onclick = () => {
+});
 
-  preview.style.display = "none";
-  aksiFoto.style.display = "none";
-  inputFoto.value = "";
+// =========================
+// AMBIL ULANG
+// =========================
 
-  fotoFile = null;
+btnUlang.addEventListener("click", () => {
 
-  status.textContent = "🔄 Ambil ulang...";
-  inputFoto.click();
+    inputFoto.value = "";
+    fotoFile = null;
 
-};
+    preview.src = "";
+    preview.style.display = "none";
 
-btnUpload.onclick = async () => {
+    aksiFoto.style.display = "none";
 
-  if (!fotoFile) {
-    alert("Belum ada foto.");
-    return;
-  }
+    inputFoto.click();
 
-  status.textContent = "⏳ Upload belum diuji";
+});
 
-};
+// =========================
+// UPLOAD
+// =========================
+
+btnUpload.addEventListener("click", async () => {
+
+    if (!fotoFile) {
+        alert("Silakan ambil foto terlebih dahulu.");
+        return;
+    }
+
+    status.textContent = "⏳ Membaca foto...";
+
+    try {
+
+        const base64 = await fileToBase64(fotoFile);
+
+        status.textContent = "⏳ Mengupload ke server...";
+
+        const response = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                fileName: fotoFile.name,
+                mimeType: fotoFile.type,
+                image: base64
+            })
+        });
+
+        const hasil = await response.json();
+
+        if (hasil.success) {
+
+            status.innerHTML =
+                "✅ Upload berhasil.<br><br>" +
+                hasil.fileName;
+
+        } else {
+
+            status.textContent =
+                "❌ Upload gagal : " + hasil.error;
+
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+        status.textContent =
+            "❌ " + err;
+
+    }
+
+});
+
+// =========================
+// BASE64
+// =========================
+
+function fileToBase64(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+
+            resolve(
+                reader.result.split(",")[1]
+            );
+
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
