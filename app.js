@@ -10,123 +10,133 @@ const btnUpload = document.getElementById("btnUpload");
 
 let fotoFile = null;
 
-// =========================
+// ==========================
 // AMBIL FOTO
-// =========================
+// ==========================
 
 btnFoto.addEventListener("click", () => {
-    inputFoto.click();
+  inputFoto.click();
 });
 
 inputFoto.addEventListener("change", (e) => {
 
-    if (!e.target.files.length) return;
+  if (!e.target.files.length) {
+    return;
+  }
 
-    fotoFile = e.target.files[0];
+  fotoFile = e.target.files[0];
 
-    preview.src = URL.createObjectURL(fotoFile);
-    preview.style.display = "block";
+  preview.src = URL.createObjectURL(fotoFile);
+  preview.style.display = "block";
 
-    aksiFoto.style.display = "block";
+  aksiFoto.style.display = "block";
 
-    status.textContent = "✅ Foto berhasil dipilih.";
+  status.textContent = "✅ Foto berhasil dipilih.";
 
 });
 
-// =========================
+// ==========================
 // AMBIL ULANG
-// =========================
+// ==========================
 
 btnUlang.addEventListener("click", () => {
 
-    inputFoto.value = "";
-    fotoFile = null;
+  fotoFile = null;
 
-    preview.src = "";
-    preview.style.display = "none";
+  inputFoto.value = "";
 
-    aksiFoto.style.display = "none";
+  preview.src = "";
+  preview.style.display = "none";
 
-    inputFoto.click();
+  aksiFoto.style.display = "none";
+
+  status.textContent = "Silakan ambil foto lembar jawaban.";
+
+  inputFoto.click();
 
 });
 
-// =========================
+// ==========================
 // UPLOAD
-// =========================
+// ==========================
 
 btnUpload.addEventListener("click", async () => {
 
-    if (!fotoFile) {
-        alert("Silakan ambil foto terlebih dahulu.");
-        return;
-    }
+  if (!fotoFile) {
+    alert("Silakan ambil foto terlebih dahulu.");
+    return;
+  }
+
+  try {
 
     status.textContent = "⏳ Membaca foto...";
 
-    try {
+    const base64 = await fileToBase64(fotoFile);
 
-        const base64 = await fileToBase64(fotoFile);
+    status.textContent = "⏳ Mengupload foto...";
 
-        status.textContent = "⏳ Mengupload ke server...";
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        fileName: fotoFile.name,
+        mimeType: fotoFile.type,
+        image: base64
+      })
+    });
 
-        const response = await fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({
-                fileName: fotoFile.name,
-                mimeType: fotoFile.type,
-                image: base64
-            })
-        });
+    const hasil = await response.json();
 
-        const hasil = await response.json();
+    if (hasil.success) {
 
-        if (hasil.success) {
+      status.innerHTML =
+        "✅ Upload berhasil.<br><br>" +
+        "Nama File : " + hasil.fileName;
 
-            status.innerHTML =
-                "✅ Upload berhasil.<br><br>" +
-                hasil.fileName;
+    } else {
 
-        } else {
-
-            status.textContent =
-                "❌ Upload gagal : " + hasil.error;
-
-        }
-
-    } catch (err) {
-
-        console.error(err);
-
-        status.textContent =
-            "❌ " + err;
+      status.innerHTML =
+        "❌ Upload gagal.<br><br>" +
+        hasil.error;
 
     }
 
+  } catch (err) {
+
+    console.error(err);
+
+    status.innerHTML =
+      "❌ Error<br><br>" +
+      err;
+
+  }
+
 });
 
-// =========================
+// ==========================
 // BASE64
-// =========================
+// ==========================
 
 function fileToBase64(file) {
 
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        const reader = new FileReader();
+    const reader = new FileReader();
 
-        reader.onload = () => {
+    reader.onload = () => {
 
-            resolve(
-                reader.result.split(",")[1]
-            );
+      const base64 = reader.result.split(",")[1];
 
-        };
+      resolve(base64);
 
-        reader.onerror = reject;
+    };
 
-        reader.readAsDataURL(file);
+    reader.onerror = reject;
 
-    });
+    reader.readAsDataURL(file);
+
+  });
 
 }
